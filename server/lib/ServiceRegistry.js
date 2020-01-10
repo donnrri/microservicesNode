@@ -3,7 +3,6 @@ class ServiceRegistry {
         this.log = log;
         this.services = {};
         this.timeout = 30;
-
     }
 
     register(name, version, ip, port) {
@@ -14,6 +13,14 @@ class ServiceRegistry {
             return key;
         }
         this.services[key].timestamp = timestamp;
+        return key;
+    }
+
+    unregister(name, version, ip, port) {
+        const key = `${name}${version}${ip}${port}`;
+        if (!this.services[key]) {
+            delete this.services[key];
+        }
         return key;
     }
 }

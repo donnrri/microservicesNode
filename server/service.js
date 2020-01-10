@@ -11,25 +11,42 @@ module.exports = (config) => {
     if (service.get('env') === 'development') {
         service.use((req, res, next) => {
             log.debug(`${req.method}: ${req.url}`);
+            console.log(` log = ${req.method}: ${req.url}`);
             return next();
         });
     }
 
+    
+    service.get('/', (req, res) => {
+      res.send('Hello ');
+
+  });
+
     // Add api to discovery and use the service registry
 
-    service.get('find/:servicename/serviceversion', (req, res) => {
+    service.get('/find/:servicename/:serviceversion/:serviceport', (req, res) => {
+        // get the service asked for
+    });
+
+    service.put('/register/:servicename/:serviceversion/:serviceport', (req, res) => {
         const {servicename, serviceversion, serviceport } = req.params;
         // on some systems remote ip is in IPv6 notation
         // code below handles that eventuality
         const serviceip = req.connection.remoteAddress.includes('::') ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
-        const result = serviceRegistry.register(servicename, serviceversion, serviceip, serviceport);
+        const result = serviceRegistry
+            .register(servicename, serviceversion, serviceip, serviceport);
         return res.json({ result });
-
     });
 
-    service.put('resgister/:servicename/serviceversion/:serviceport', (req, res, next) => next('Not Implemented'));
-
-    service.delete('resgister/:servicename/serviceversion/:serviceport', (req, res, next) => next('Not Implemented'));
+    service.delete('/register/:servicename/:serviceversion/:serviceport', (req, res) => {
+        const {servicename, serviceversion, serviceport } = req.params;
+        // on some systems remote ip is in IPv6 notation
+        // code below handles that eventuality
+        const serviceip = req.connection.remoteAddress.includes('::') ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
+        const result = serviceRegistry
+            .unregister(servicename, serviceversion, serviceip, serviceport);
+        return res.json({ result });
+    });
 
 
     // eslint-disable-next-line no-unused-vars
