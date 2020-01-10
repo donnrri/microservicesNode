@@ -17,8 +17,8 @@ module.exports = (config) => {
 
     // Add api to discovery and use the service registry
 
-    service.get('find/:servicename/serviceversion', (req, res, next) => {
-        const {servicename, serviceversion, serviceport} = req.params;
+    service.get('find/:servicename/serviceversion', (req, res) => {
+        const {servicename, serviceversion, serviceport } = req.params;
         // on some systems remote ip is in IPv6 notation
         // code below handles that eventuality
         const serviceip = req.connection.remoteAddress.includes('::') ? `[${req.connection.remoteAddress}]` : req.connection.remoteAddress;
