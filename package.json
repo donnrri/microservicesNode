@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A generic service registry for Node.js",
   "scripts": {
-    "start": "node bin/run | bunyan"
+    "start": "node bin/run | bunyan",
+    "lint": "eslint \"**/*.{js,jsx}\""
   },
   "keywords": [],
   "author": "",
