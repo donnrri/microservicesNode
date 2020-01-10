@@ -13,6 +13,14 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "indent": ["error", 4],
+    "skipBlankLines": false,
+    "object-curly-newline": ["error", {
+      "ObjectExpression": "never",
+      "ObjectPattern": { "multiline": true },
+      "ImportDeclaration": "never",
+      "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+  }]
   },
 };
