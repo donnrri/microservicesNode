@@ -13,6 +13,21 @@ module.exports = (config) => {
     });
   }
 
+  // Add api to discovery and use the service registry
+
+  service.get('find/:servicename/serviceversion', (req, res, next) => {
+    return next('Not Implemented');
+  });
+
+  service.put('resgister/:servicename/serviceversion/:serviceport', (req, res, next) => {
+    return next('Not Implemented');
+  });
+
+  service.delete('resgister/:servicename/serviceversion/:serviceport', (req, res, next) => {
+    return next('Not Implemented');
+  });
+
+
   // eslint-disable-next-line no-unused-vars
   service.use((error, req, res, next) => {
     res.status(error.status || 500);
